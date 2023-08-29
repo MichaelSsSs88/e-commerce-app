@@ -1,0 +1,91 @@
+<div>
+
+  <div
+    class="bg-gradient-to-r from-color-primary-1 to-white xl:w-1/4 lg:w-1/4 md:w-2/4 sm:w-3/4 xs:w-3/4 h-auto m-auto my-28 py-4 rounded-md shadow-2xl shadow-color-primary-4">
+    <app-loading *ngIf="isVisible"></app-loading>
+    <div *ngIf="!isVisible" class="flex-wrap columns-3">
+      <div>
+        <h1 class="{{class_register}}">Register</h1>
+        <div class="text-center">
+          <label class="relative inline-flex items-center mr-5 cursor-pointer">
+            <input (click)="statusChanged()" type="checkbox"
+              [(ngModel)]="isLogin" value class="sr-only peer" checked>
+            <div
+              class="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-black dark:peer-focus:ring-teal-50 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-black"></div>
+          </label>
+        </div>
+        <h1 class="{{class_login}}">Login</h1>
+      </div>
+
+    </div>
+    <div *ngIf="!isVisible">
+      <form [formGroup]="formData" (ngSubmit)="authProcess()">
+        <div *ngIf="!isLogin" class="relative mt-4 mx-4 my-2 ">
+          <input type="text" id="floating_outlined_1"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-black dark:border-color-primary-3 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-white peer"
+            placeholder=" "
+            formControlName="name" />
+          <label for="floating_outlined"
+          class={{class_label}}>Name</label>
+        </div>
+        <div class="mx-4 my-1">
+          <span class="text-red-600 px-1" *ngFor="let item of displayErros('name')">{{item}}</span>
+        </div>
+
+        <div *ngIf="!isLogin" class="relative m-4">
+          <input type="tel" id="floating_outlined_2"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-black  dark:border-color-primary-3 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-white peer"
+            placeholder=" "
+            formControlName="phone" />
+          <label for="floating_outlined"
+          class={{class_label}}>Phone</label>
+        </div>
+        <div class="mx-4 my-1">
+          <span class="text-red-600 px-1"  *ngFor="let item of displayErros('phone')">{{item}}</span>
+        </div>
+        <div class="relative m-4">
+          <input type="email" id="floating_outlined_3"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-black dark:border-color-primary-3 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-white peer"
+            placeholder=" "
+            formControlName="email" />
+          <label for="floating_outlined"
+          class={{class_label}}>Email</label>
+        </div>
+        <div class="mx-4 my-1">
+          <span class="text-red-600 px-1" *ngFor="let item of displayErros('email')">{{item}}</span>
+        </div>
+        <div class="relative m-4">
+          <input type="password" id="floating_outlined_4"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-black dark:border-color-primary-3 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-white peer"
+            placeholder=" "
+            formControlName="password" />
+          <label for="floating_outlined"
+          class={{class_label}}>Password</label>
+        </div>
+        <div class="mx-4 my-1">
+          <span class="text-red-600 px-1"  *ngFor="let item of displayErros('password')">{{item}}</span>
+        </div>
+        <div *ngIf="!isLogin" class="relative m-4">
+          <input type="password" id="floating_outlined_5"
+            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-black dark:border-color-primary-3 dark:focus:border-white focus:outline-none focus:ring-0 focus:border-white peer"
+            placeholder=" "
+            formControlName="confirmPassword" />
+          <label for="floating_outlined" class={{class_label}}
+         >Confirm
+            Password</label>
+        </div>
+        <div class="mx-4 my-1">
+          <span class="text-red-600 px-1"  *ngFor="let item of displayErros('confirmPassword')">{{item}}</span>
+        </div>
+        <div class="m-4">
+          <button
+            [disabled]="(this.formData!=null&&this.formData.status==='INVALID'&&!isLogin)||(isLogin&&((displayErros('email').length>0||displayErros('password').length>0)||!this.formData.get('email')?.touched||!this.formData.get('password')?.touched))"
+            class="bg-gray-900 rounded-md p-2 text-white hover:bg-color-primary-1 disabled:opacity-10"
+            type="submit">{{isLogin?"Login":"Register"}}</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

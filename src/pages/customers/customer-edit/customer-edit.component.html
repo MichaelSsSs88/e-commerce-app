@@ -1,0 +1,51 @@
+<div class="border-4  rounded-xl p-8 pb-0 md:mx-48 sm:mx-12 mt-4 min-h-max overflow-scroll bg-gray-800">
+  <h1 class="text-2xl text-white">New customer's data</h1>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="text-left overflow-scroll">
+      <div class="xl:mx-48 lg:mx-48 md:mx-4 sm:mx-4 mb-4 m-auto ">
+        <img [src]="recipeForm.value.imagePath" alt="" srcset="" class="h-auto w-full rounded-lg" >
+      </div>
+    <div class="grid md:grid-cols-1 md:gap-6">
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="text" formControlName="identification" name="identification"
+          id="identification"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" " required />
+        <label for="identification" className={{class_identification}}>Identification</label>
+        <span *ngFor="let error of showError('identification')" class="text-red-700">{{error}}</span>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="text" formControlName="name" name="name" id="name"
+          class="{{class_name}}"
+          placeholder=" " required />
+        <label for="name" className={{class_identification}}>Name</label>
+        <span *ngFor="let error of showError('name')" class="text-red-700">{{error}}</span>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="text" formControlName="address" name="address" id="address"
+          class="{{class_name}}"
+          placeholder=" " required />
+        <label for="address" className={{class_identification}}>Address</label>
+        <!-- <span *ngFor="let error of showError('name')" class="text-red-700">{{error}}</span> -->
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="text" formControlName="phone" name="phone" id="phone"
+          class="{{class_name}}"
+          placeholder=" " required />
+        <label for="phone" className={{class_identification}}>Phone</label>
+        <!-- <span *ngFor="let error of showError('name')" class="text-red-700">{{error}}</span> -->
+      </div>
+    </div>
+    <div class="grid md:grid-cols-1 md:gap-6">
+
+      <div class="relative z-0 w-full mb-6 group mt-2">
+        <div class="relative z-0 w-full mb-6 group">
+          <button  type="submit"  class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 disabled:opacity-50">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                {{buttonMessage}}
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
