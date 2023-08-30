@@ -46,6 +46,10 @@ export class BillListComponent implements OnInit{
 
   }
 
+  getBillBalance(identificator:number):number{
+      return this.billService.getBalanceAmount(identificator);
+  }
+
   editCustomer(bill:BillModel){
       this.billService.setBillSelected=bill;
       this.router.navigate(['bill',bill.identificator,'edit'])

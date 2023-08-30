@@ -4,6 +4,7 @@ import { BillModel } from 'src/models/bill/bill.model';
 import { CustomerModel } from 'src/models/customer/customer.model';
 import { BillLineModel } from 'src/models/bill-line/bill-line.model';
 import { BehaviorSubject } from 'rxjs';
+import { PaymentModel } from 'src/models/payment/payment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class BillService {
     billLines.push(new BillLineModel("Pant", "s", 2, 50, 6, 63, 15));
     billLines.push(new BillLineModel("Blouse", "s", 4, 10, 3, 43, 13));
     billLines.push(new BillLineModel("Underwear", "s", 4, 7, 3, 31, 7));
-    customer && this._billsList.push(new BillModel(1,customer, billLines, 580, 600, new Date()));
+    customer && this._billsList.push(new BillModel(1,customer, billLines, 580, 600,[], new Date()));
 
     customer = this.CustomerService.getCustomer("2");
     billLines = [];
@@ -37,7 +38,7 @@ export class BillService {
     billLines.push(new BillLineModel("Pant", "s", 2, 50, 6, 63, 15));
     billLines.push(new BillLineModel("Blouse", "s", 4, 10, 3, 43, 13));
     billLines.push(new BillLineModel("Underwear", "s", 4, 7, 3, 31, 7));
-    customer && this._billsList.push(new BillModel(2,customer, billLines, 580, 600, new Date()));
+    customer && this._billsList.push(new BillModel(2,customer, billLines, 580, 600,[], new Date()));
 
     customer = this.CustomerService.getCustomer("3");
     billLines = [];
@@ -45,7 +46,7 @@ export class BillService {
     billLines.push(new BillLineModel("Pant", "s", 2, 50, 6, 63, 15));
     billLines.push(new BillLineModel("Blouse", "s", 4, 10, 3, 43, 13));
     billLines.push(new BillLineModel("Underwear", "s", 4, 7, 3, 31, 7));
-    customer && this._billsList.push(new BillModel(3,customer, billLines, 580, 600, new Date()));
+    customer && this._billsList.push(new BillModel(3,customer, billLines, 580, 600,[], new Date()));
 
     customer = this.CustomerService.getCustomer("4");
     billLines = [];
@@ -53,7 +54,7 @@ export class BillService {
     billLines.push(new BillLineModel("Pant", "s", 2, 50, 6, 63, 15));
     billLines.push(new BillLineModel("Blouse", "s", 4, 10, 3, 43, 13));
     billLines.push(new BillLineModel("Underwear", "s", 4, 7, 3, 31, 7));
-    customer && this._billsList.push(new BillModel(4,customer, billLines, 580, 600, new Date()));
+    customer && this._billsList.push(new BillModel(4,customer, billLines, 580, 600, [], new Date()));
   }
 
   public get billsList(): BillModel[] {
@@ -64,7 +65,6 @@ export class BillService {
   }
   public set setBillSelected(value: BillModel) {
     this.billSelected = value;
-    //alert(this.customerSelected.identification);
     this.billSelectedEvent.next(this.billSelected);
   }
 
@@ -89,16 +89,24 @@ export class BillService {
    return this._billsList.find(bill => bill.identificator==identificator);
   }
 
+  public getBalance(identificator:number):PaymentModel[]|any{
+    return this._billsList.find(bill => bill.identificator==identificator)?.payments.find(payment =>{
+      return payment;
+    });
+  }
+
+  public getBalanceAmount(identificator:number):PaymentModel[]|any{
+    let amountPaid=0;
+    this._billsList.find(bill => bill.identificator==identificator)?.payments.forEach(payment =>{
+        amountPaid+=payment.amount;
+    });
+
+    return amountPaid;
+  }
 
 
-//   public updateCustomer(customerModel:BillModel):void{
-//     this.customers.map((customer) => {
-//       if(customerModel.identification==customer.identification){
-//         customer.name=customerModel.name;
-//         customer.address=customerModel.address;
-//         customer.phone=customerModel.phone;
-//       }
-//     });
-//     this.customersEvent.next(this.customers);
-// }
+  public applyPayment(identificator:number, description:string, amount:number){
+    let balance=0;
+    this._billsList.find(bill => bill.identificator==identificator)?.billLines.forEach(billLine =>{balance+=billLine.totalCost+billLine.totalEarning});
+  }
 }

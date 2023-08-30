@@ -1,12 +1,7 @@
-<app-navbar></app-navbar>
-<!-- (accountAdded)="onAccountAdded($event)" -->
-<!-- <app-new-account></app-new-account> -->
-<!-- (statusChanged)="onStatusChanged($event)" -->
-<!-- <app-account *ngFor="let acc of accounts; let i=index" [account]="acc" id={{i}}
-
-  ></app-account> -->
-<div class="m-auto p-0 pt-16 w-full mb-10" style="position: relative;padding-bottom: 3em;">
-  <div class="row m-0 p-0 w-full min-h-screen absolute">
+<div class="min-h-screen bg-gray-800">
+  <app-navbar></app-navbar>
+<div class="m-auto p-0 pt-16 w-full mb-10 bg-gray-800 absolute" style="position: relative;padding-bottom: 3em;">
+  <div class="row m-0 p-0 w-full min-h-max bg-gray-800 absolute">
     <router-outlet></router-outlet>
   </div>
 </div>
@@ -36,3 +31,5 @@
     <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.</span>
 </div>
 </footer>
+</div>
+

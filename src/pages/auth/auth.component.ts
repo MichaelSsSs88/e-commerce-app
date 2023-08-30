@@ -1,7 +1,9 @@
-import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AlertComponent } from 'src/components/alert/alert.component';
+import { PlaceholderDirective } from 'src/directives/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
@@ -11,9 +13,9 @@ import { Subscription } from 'rxjs';
 
 export class AuthComponent implements AfterContentChecked, OnInit, AfterViewInit, OnDestroy {
   class_label:string= "absolute text-sm text-white dark:text-black bg-color-primary-3 opacity-90 duration-300 transform -translate-y-5 scale-90 top-2 z-10 origin-[0] px-3 py-1 peer-focus:px-2 peer-focus:border-white peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:bg-black peer-focus:top-2 peer-focus:scale-95 peer-focus:text-white peer-focus:-translate-y-4 left-2";
-
   isLogin: boolean = false;
   isVisible: boolean = true;
+  class_status = "bg-gradient-to-r from-slate-600 to-color-primary-2 xl:w-1/4 lg:w-1/4 md:w-2/4 sm:w-3/4 xs:w-3/4 h-auto m-auto my-28 py-4 rounded-md shadow-2xl shadow-color-primary-1";
   class_register = 'px-2 text-right text-black';
   class_login = 'px-2 text-left text-gray-400';
   mobnumPattern = "^((\\+506-?)|0)?[0-9]{8}$";
@@ -21,6 +23,8 @@ export class AuthComponent implements AfterContentChecked, OnInit, AfterViewInit
   passwordPattern = "^(?=.*\!)(?=.*\&)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$";
   formIsOK = false;
   formData: FormGroup;
+  @ViewChild(PlaceholderDirective) alertHost!: PlaceholderDirective;
+  closeSubscriptor:Subscription= new Subscription();
 
   reloadForm = () => new FormGroup({
     name: new FormControl('', [Validators.required, this.nameValitator]),
@@ -34,7 +38,7 @@ export class AuthComponent implements AfterContentChecked, OnInit, AfterViewInit
   userSubscription:Subscription= new Subscription();
   status = false;
 
-  constructor(private cd: ChangeDetectorRef/*, private authService: AuthService, private authentication: AuthenticationService*/, private router: Router) {
+  constructor(private cd: ChangeDetectorRef/*, private authService: AuthService, private authentication: AuthenticationService*/, private router: Router,private componentFactoryResolver:ComponentFactoryResolver) {
     // this.statusSubscriptio = authService.authenticated.subscribe(auth => {
     //   this.status = auth;
     // });
@@ -111,6 +115,7 @@ export class AuthComponent implements AfterContentChecked, OnInit, AfterViewInit
 
   authProcess() {
 
+    this.showErrorAlert("Please enter data");
     // this.authentication
     //   .signUp(this.formData.value.email, this.formData.value.password,this.isLogin?"login":"register")
     //   .subscribe({
@@ -131,6 +136,20 @@ export class AuthComponent implements AfterContentChecked, OnInit, AfterViewInit
     //       console.log("sadasd");
     //     }
     //   });
+  }
+
+  showErrorAlert(errorMessage:string){
+    const alertViewRef=this.alertHost.viewContainerRef;
+    alertViewRef.clear();
+    const alertComponentRef=alertViewRef.createComponent(AlertComponent);
+    alertComponentRef.instance.message=errorMessage;
+    this.closeSubscriptor=alertComponentRef.instance.closeClick.subscribe(() => {
+        this.closeSubscriptor.unsubscribe();
+        alertViewRef.clear();
+        this.class_status = "bg-gradient-to-r from-slate-600 to-color-primary-2 xl:w-1/4 lg:w-1/4 md:w-2/4 sm:w-3/4 xs:w-3/4 h-auto m-auto my-28 py-4 rounded-md shadow-2xl shadow-color-primary-1";
+    });
+
+    //alertComponentRef.instance.
   }
 
 }

@@ -1,6 +1,6 @@
-<div>
+<div class="mb-12 overflow-y-scroll bg-gray-100">
   <div *ngIf="isVisibleFormToAddItem"
-    class="fixed w-full mt-12 bg-transparent z-50">
+    class="fixed w-full lg:mt-12 md:mt-12 sm:mt-5 bg-transparent z-50">
     <app-bill-item (closeFormToAddItem)="closeFormToAddItem($event)"></app-bill-item>
   </div>
   <div
@@ -8,7 +8,7 @@
     <h1 class="text-2xl text-white">Create Bill</h1>
     <form [formGroup]="billForm" (ngSubmit)="onSubmit()"
       class="text-left overflow-scroll">
-      <div (mouseleave)="visibleBillDetail()" (mouseover)="showBillDetails()"
+      <div  (mouseleave)="visibleBillDetail()" (mouseover)="showBillDetails()"
         class="grid md:grid-cols-1 md:gap-6 mt-4 border-2 rounded-md p-4 mb-2">
         <div class="grid md:grid-cols-2 md:gap-6 mt-4">
           <div class="relative z-0 w-full mb-4 group col-12">
@@ -103,16 +103,131 @@
         </div>
 
       </div>
-      <div class="grid mt-1 mb-3">
-        <button class="col-start-13 text-white" (click)="isAddingNewItem()"
-          type="button">
-          <svg class="text-3xl w-full" xmlns="http://www.w3.org/2000/svg"
-            height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#feffff}</style><path
-              d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg>
-        </button>
+      <div class="grid grid-cols-2 mt-1 mb-3">
+        <div class="col-start-13">
+          <button *ngIf="buttonMessage!='Update'" class=" text-white"
+            (click)="isAddingNewItem()"
+            type="button">
+            <svg class="text-3xl w-full" xmlns="http://www.w3.org/2000/svg"
+              height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#feffff}</style><path
+                d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg>
+          </button>
+          <button *ngIf="buttonMessage=='Update'" class=" text-white"
+            (click)="applyPayment()"
+            type="button">
+            <svg class="text-white text-3xl w-12 h-7" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 20 20">
+              <path
+                d="M19.728 10.686c-2.38 2.256-6.153 3.381-9.875 3.381-3.722 0-7.4-1.126-9.571-3.371L0 10.437V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-7.6l-.272.286Z" />
+              <path
+                d="m.135 7.847 1.542 1.417c3.6 3.712 12.747 3.7 16.635.01L19.605 7.9A.98.98 0 0 1 20 7.652V6a2 2 0 0 0-2-2h-3V3a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v1H2a2 2 0 0 0-2 2v1.765c.047.024.092.051.135.082ZM10 10.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5ZM7 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1H7V3Z" />
+            </svg>
+          </button>
+        </div>
+
       </div>
 
-      <div class="max-h-96 overflow-x-auto overflow-y-auto mb-8">
+      <div *ngIf="isPaymentSectionActive"
+        class="grid md:grid-cols-1 md:gap-6 mt-4 border-2 rounded-md p-4 mb-2">
+        <div class="grid md:grid-cols-2 md:gap-6 mt-4">
+          <div class="relative z-0 w-full mb-4 group col-12">
+            <input type="text" formControlName="paymentDescription"
+              name="paymentDescription"
+              id="paymentDescription"
+              class="block py-2.5 pl-2 w-full text-sm text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer rounded-md eadonly"
+              placeholder=" " required/>
+            <label for="paymentDescription"
+              class="bg-white w-36 pl-1 font-medium absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6  scale-100 top-4 z-10 origin-[0] left-2  peer-focus:dark:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-6 peer-focus:scale-100  dark:focus:border-red-600 dark:border-red-600 rounded-sm">Payment Description</label>
+            <!-- <span *ngFor="let error of showError('billNumber')"
+            class="text-red-700">{{error}}</span> -->
+          </div>
+          <div class="grid md:grid-cols-3 md:gap-6">
+            <div
+            class="relative z-0  lg:w-full  md:w-full mb-4 sm:w-full xs:w-full group col-6">
+            <input type="number" formControlName="amount"
+              name="amount"
+              id="amount"
+              class="block py-2.5 px-0 pl-2 w-full text-sm text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer rounded-md eadonly"
+              placeholder=" " required/>
+            <label for="amount"
+              class="bg-white w-24 pl-1 font-medium absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6  scale-100 top-4 z-10 origin-[0] left-2  peer-focus:dark:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-6 peer-focus:scale-75  dark:focus:border-red-600 dark:border-red-600 rounded-sm">Amount</label>
+            <!-- <span *ngFor="let error of showError('date')"
+            class="text-red-700">{{error}}</span> -->
+          </div>
+          <div
+            class="relative z-0  lg:w-full md:w-full mb-4 sm:w-full xs:w-full group col-6">
+            <input type="text" formControlName="datePayment"
+              name="datePayment"
+              id="datePayment"
+              class="block py-2.5 px-0 pl-2 w-full text-sm text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer rounded-md eadonly"
+              placeholder=" " required readonly />
+            <label for="datePayment"
+              class="bg-white w-24 pl-1 font-medium absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6  scale-100 top-4 z-10 origin-[0] left-2  peer-focus:dark:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-6 peer-focus:scale-75  dark:focus:border-red-600 dark:border-red-600 rounded-sm">Date</label>
+            <!-- <span *ngFor="let error of showError('date')"
+            class="text-red-700">{{error}}</span> -->
+          </div>
+          <div
+            class="relative z-0  lg:w-full  md:w-full mb-4 sm:w-full xs:w-full group col-6">
+            <button type="button"
+             (click)="addPayment()"
+              class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 disabled:opacity-50">
+              <span
+                class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                Add payment
+              </span>
+            </button>
+            <!-- <span *ngFor="let error of showError('date')"
+            class="text-red-700">{{error}}</span> -->
+          </div>
+            <!-- <span *ngFor="let error of showError('billNumber')"
+            class="text-red-700">{{error}}</span> -->
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="isPaymentSectionActive"
+      class="max-h-96 overflow-x-auto overflow-y-auto mb-8">
+      <table
+        class="w-full text-sm text-left text-gray-500 dark:text-gray-400 p-4 md:w-full sm:w-full xs:w-full">
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <!--(private _identificator: number,private _customer: CustomerModel, private _billLines: BillLineModel[], private _dolarPrice: number, private _total: number, private _date: Date)-->
+            <th scope="col" class="px-6 py-3">
+              Description
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Amount
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Date
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- (private _product: string, private _size: string, private _quantity: number, private _price: number, private _deliverCost: number, private _totalCost: number, private _totalEarning: number) -->
+          <tr
+            *ngFor="let payment of billSeleted?.payments; index as n"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <th scope="row"
+              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{payment.description}}
+            </th>
+            <td class="px-6 py-4">
+              {{payment.amount}}
+            </td>
+            <td class="px-6 py-4">
+              {{payment.date}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+      <div *ngIf="!isPaymentSectionActive"
+        class="max-h-96 overflow-x-auto overflow-y-auto mb-8">
         <table
           class="w-full text-sm text-left text-gray-500 dark:text-gray-400 p-4 md:w-full sm:w-full xs:w-full">
           <thead
@@ -179,32 +294,35 @@
                 {{billForm.value.date}}
               </td>
               <td class="px-6 py-4">
-                <a
+                <a *ngIf="buttonMessage!='Update'"
                   (click)="removeBillLine(bill)"
                   class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Remove</a>
+                <p *ngIf="buttonMessage=='Update'">No action</p>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="flex flex-col items-center">
+      <div *ngIf="!isPaymentSectionActive" class="flex flex-col items-center">
         <!-- Help text -->
         <span class="text-sm text-gray-700 dark:text-gray-400">
-          Showing <span class="font-semibold text-gray-900 dark:text-white">{{(pageInView*2)-1}}</span>
-          to <span class="font-semibold text-gray-900 dark:text-white">{{(pageInView*2)}}</span>
+          Showing <span class="font-semibold text-gray-900 dark:text-white">{{(pageInView*2)-1<=this.billLinesList.length?(pageInView*2)-1:this.billLinesList.length}}</span>
+          to <span class="font-semibold text-gray-900 dark:text-white">{{(pageInView*2)<=this.billLinesList.length?(pageInView*2):this.billLinesList.length}}</span>
           of <span class="font-semibold text-gray-900 dark:text-white">{{this.billLinesList.length}}</span>
           Entries
         </span>
         <!-- Buttons -->
         <div class="inline-flex mt-2 xs:mt-0">
           <button
+            type="button"
             [disabled]="pageInView==1?true:false"
             (click)="previousPage()"
             class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
             Prev
           </button>
           <button
+            type="button"
             [disabled]="pageInView==maxPage()?true:false"
             (click)="nextPage()"
             class="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -218,7 +336,7 @@
         <input type="text" formControlName="totalPrice"
           name="totalPrice"
           id="totalPrice"
-          class="block bg-color-primary-0 text-black text-center py-2.5 px-2 w-full text-2xl  bg-transparent border-2 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer rounded-md eadonly"
+          class="block bg-color-primary-1 dark:bg-color-primary-1 text-black text-center py-2.5 px-2 w-full text-2xl  bg-transparent border-2 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-white dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer rounded-md eadonly"
           placeholder=" " required readonly />
         <label for="totalPrice"
           class="bg-white w-32 pl-1 font-medium absolute text-sm text-gray-500 dark:text-black duration-300 transform -translate-y-6  scale-100 top-4 z-10 origin-[0] left-2  peer-focus:dark:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-6 peer-focus:scale-75  dark:focus:border-red-600 dark:border-red-600 rounded-sm">Total
@@ -226,11 +344,12 @@
         <span *ngFor="let error of showError('consumerPrice')"
           class="text-red-700">{{error}}</span>
       </div>
+
       <div class="grid md:grid-cols-1 md:gap-6">
         <div class="relative z-0 w-full mb-6 group mt-2">
           <div class="relative z-0 w-full mb-6 group">
             <button type="submit"
-              class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 disabled:opacity-50">
+              class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-color-primary-1 to-color-primary-4 group-hover:from-color-primary-1 group-hover:to-color-primary-4 hover:text-black dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 disabled:opacity-50">
               <span
                 class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                 {{buttonMessage}}

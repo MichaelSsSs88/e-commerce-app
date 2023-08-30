@@ -24,6 +24,8 @@ import { BillEditComponent } from 'src/pages/bills/bill-edit/bill-edit.component
 import { BillItemComponent } from 'src/pages/bills/bill-item/bill-item.component';
 import { BillListComponent } from 'src/pages/bills/bill-list/bill-list.component';
 import { FilterObject } from 'src/pipes/filter-object.pipe';
+import { PlaceholderDirective } from 'src/directives/placeholder.directive';
+import { AlertComponent } from 'src/components/alert/alert.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { FilterObject } from 'src/pipes/filter-object.pipe';
     BillItemComponent,
     BillListComponent,
     FilterPipe,
-    FilterObject
+    FilterObject,
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,

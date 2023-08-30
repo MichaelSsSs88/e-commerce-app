@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerModel } from '../customer/customer.model';
 import { BillLineModel } from '../bill-line/bill-line.model';
+import { PaymentModel } from '../payment/payment.model';
 
 
 export class BillModel {
 
 
-  constructor(private _identificator: number,private _customer: CustomerModel, private _billLines: BillLineModel[], private _dolarPrice: number, private _total: number, private _date: Date) {
+
+  constructor(private _identificator: number,private _customer: CustomerModel, private _billLines: BillLineModel[], private _dolarPrice: number, private _total: number, private _payments: PaymentModel[], private _date: Date) {
 
   }
 
@@ -46,6 +48,13 @@ export class BillModel {
   }
   public set customer(value: CustomerModel) {
     this._customer = value;
+  }
+
+  public get payments(): PaymentModel[] {
+    return this._payments;
+  }
+  public set payments(value: PaymentModel[]) {
+    this._payments = value;
   }
 
 }
