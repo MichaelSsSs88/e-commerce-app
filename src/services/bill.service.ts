@@ -5,6 +5,7 @@ import { CustomerModel } from 'src/models/customer/customer.model';
 import { BillLineModel } from 'src/models/bill-line/bill-line.model';
 import { BehaviorSubject } from 'rxjs';
 import { PaymentModel } from 'src/models/payment/payment.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class BillService {
   private customers: CustomerModel[] = [];
 
 
-  constructor(private CustomerService: CustomerService) {
+  constructor(private CustomerService: CustomerService, private http: HttpClient) {
     let customer: CustomerModel | undefined = this.CustomerService.getCustomer("1");
     let billLines: BillLineModel[] = [];
     billLines.push(new BillLineModel("shirt", "s", 4, 15, 3, 63, 15));
@@ -108,5 +109,9 @@ export class BillService {
   public applyPayment(identificator:number, description:string, amount:number){
     let balance=0;
     this._billsList.find(bill => bill.identificator==identificator)?.billLines.forEach(billLine =>{balance+=billLine.totalCost+billLine.totalEarning});
+  }
+
+  public getUsers(){
+    this.http.get("http://localhost:8080/api/v1/user/").subscribe((response)=>console.log(response));
   }
 }

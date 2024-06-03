@@ -37,7 +37,7 @@ export class BillListComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+      this.billService.getUsers();
   }
 
   createBill(){
